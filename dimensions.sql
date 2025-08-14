@@ -1,0 +1,54 @@
+USE SCHEMA DWH;
+
+-- Dimensão de datas (YYYYMMDD como chave)
+CREATE OR REPLACE TABLE DIM_DATE (
+  DATE_KEY    INT PRIMARY KEY,     -- yyyymmdd
+  DDATE       DATE,
+  YEAR        INT,
+  QUARTER     INT,
+  MONTH       INT,
+  DAY         INT,
+  DOW_ISO     INT,
+  IS_WEEKEND  BOOLEAN
+);
+
+-- Povoar 2023-2025 (ajuste o range conforme necessidade)
+INSERT INTO DIM_DATE
+SELECT
+  TO_NUMBER(TO_VARCHAR(d, 'YYYYMMDD'))       AS DATE_KEY,
+  d                                          AS DDATE,
+  YEAR(d)                                    AS YEAR,
+  QUARTER(d)                                 AS QUARTER,
+  MONTH(d)                                   AS MONTH,
+  DAY(d)                                     AS DAY,
+  DAYOFWEEKISO(d)                            AS DOW_ISO,
+  (DAYOFWEEKISO(d) IN (6,7))                 AS IS_WEEKEND
+FROM TABLE(GENERATOR(ROWCOUNT => 365*3)) g
+QUALIFY (d := DATEADD('day', SEQ4(), '2023-01-01')) IS NOT NULL;
+
+-- Dimensão de clientes (surrogate key)
+CREATE OR REPLACE TABLE DIM_CUSTOMER (
+  CUSTOMER_SK NUMBER IDENTITY PRIMARY KEY,
+  CUSTOMER_ID VARCHAR UNIQUE,
+  FULL_NAME   VARCHAR,
+  EMAIL       VARCHAR,
+  STATE       VARCHAR,
+  CREATED_AT  TIMESTAMP
+);
+
+INSERT INTO DIM_CUSTOMER (CUSTOMER_ID, FULL_NAME, EMAIL, STATE, CREATED_AT)
+SELECT CUSTOMER_ID, FULL_NAME, EMAIL, STATE, CREATED_AT
+FROM STAGING.CUSTOMERS;
+
+-- Dimensão de produtos (surrogate key)
+CREATE OR REPLACE TABLE DIM_PRODUCT (
+  PRODUCT_SK NUMBER IDENTITY PRIMARY KEY,
+  SKU        VARCHAR UNIQUE,
+  PRODUCT    VARCHAR,
+  CATEGORY   VARCHAR,
+  PRICE      NUMBER(12,2)
+);
+
+INSERT INTO DIM_PRODUCT (SKU, PRODUCT, CATEGORY, PRICE)
+SELECT SKU, PRODUCT, CATEGORY, PRICE
+FROM STAGING.PRODUCTS;
