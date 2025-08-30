@@ -67,6 +67,7 @@ FROM (
     CURRENT_TIMESTAMP()::TIMESTAMP AS LOAD_TS
   FROM CORE.FACT_SALES
 )
+HEADER = TRUE -- Adiciona o nome das colunas ao arquivo Parquet
 OVERWRITE = TRUE; -- Sobrescreve arquivos anteriores nesse prefixo
 ```
 
