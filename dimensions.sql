@@ -15,16 +15,18 @@ CREATE OR REPLACE TABLE DIM_DATE (
 -- Povoar 2023-2025 (ajuste o range conforme necessidade)
 INSERT INTO DIM_DATE
 SELECT
-  TO_NUMBER(TO_VARCHAR(d, 'YYYYMMDD'))       AS DATE_KEY,
-  d                                          AS DDATE,
-  YEAR(d)                                    AS YEAR,
-  QUARTER(d)                                 AS QUARTER,
-  MONTH(d)                                   AS MONTH,
-  DAY(d)                                     AS DAY,
-  DAYOFWEEKISO(d)                            AS DOW_ISO,
-  (DAYOFWEEKISO(d) IN (6,7))                 AS IS_WEEKEND
-FROM TABLE(GENERATOR(ROWCOUNT => 365*3)) g
-QUALIFY (d := DATEADD('day', SEQ4(), '2023-01-01')) IS NOT NULL;
+    TO_NUMBER(TO_VARCHAR(d, 'YYYYMMDD'))       AS DATE_KEY,
+    d                                          AS DDATE,
+    YEAR(d)                                    AS YEAR,
+    QUARTER(d)                                 AS QUARTER,
+    MONTH(d)                                   AS MONTH,
+    DAY(d)                                     AS DAY,
+    DAYOFWEEKISO(d)                            AS DOW_ISO,
+    (DAYOFWEEKISO(d) IN (6,7))                 AS IS_WEEKEND
+FROM (
+    SELECT DATEADD('day', SEQ4(), '2023-01-01') AS d
+    FROM TABLE(GENERATOR(ROWCOUNT => 365*3))
+);
 
 -- Dimensão de clientes (surrogate key)
 CREATE OR REPLACE TABLE DIM_CUSTOMER (

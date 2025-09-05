@@ -64,9 +64,10 @@ FROM (
     QUANTITY,
     UNIT_PRICE,
     QUANTITY * UNIT_PRICE AS GROSS_AMOUNT, -- Coluna derivada em tempo de exportação
-    CURRENT_TIMESTAMP() AS LOAD_TS
+    CURRENT_TIMESTAMP()::TIMESTAMP AS LOAD_TS
   FROM CORE.FACT_SALES
 )
+HEADER = TRUE -- Adiciona o nome das colunas ao arquivo Parquet
 OVERWRITE = TRUE; -- Sobrescreve arquivos anteriores nesse prefixo
 ```
 
