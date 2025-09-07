@@ -292,7 +292,7 @@ JOIN DWH.DIM_PRODUCT p ON p.PRODUCT_SK = f.PRODUCT_SK
 GROUP BY d.YEAR, d.QUARTER, p.CATEGORY
 ORDER BY d.YEAR, d.QUARTER, RECEITA_CATEGORIA DESC;
 
--- 6. Análise de impostos e margem
+-- 5. Análise de impostos e margem
 SELECT 
   p.CATEGORY,
   SUM(f.GROSS_AMOUNT) AS RECEITA_BRUTA,
@@ -305,7 +305,7 @@ JOIN DWH.DIM_ORDER o ON o.ORDER_SK = f.ORDER_SK
 GROUP BY p.CATEGORY
 ORDER BY RECEITA_BRUTA DESC;
 
--- 7. Análise de sazonalidade (vendas por dia da semana)
+-- 6. Análise de sazonalidade (vendas por dia da semana)
 SELECT 
   d.DOW_ISO,
   CASE d.DOW_ISO 
