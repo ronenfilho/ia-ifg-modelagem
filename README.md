@@ -305,7 +305,7 @@ JOIN DWH.DIM_ORDER o ON o.ORDER_SK = f.ORDER_SK
 GROUP BY p.CATEGORY
 ORDER BY RECEITA_BRUTA DESC;
 
--- 5. Análise de sazonalidade (vendas por dia da semana)
+-- 7. Análise de sazonalidade (vendas por dia da semana)
 SELECT 
   d.DOW_ISO,
   CASE d.DOW_ISO 
