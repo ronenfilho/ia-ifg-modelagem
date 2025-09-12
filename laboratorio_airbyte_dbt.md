@@ -10,6 +10,7 @@
 ## 🧑‍🏫 Parte 1 — Laboratório Guiado
 
 ### 1. Instalação e configuração preliminar
+- **Snowflake**: execute o arquivo setup_lab_airbyte.sql
 - **Airbyte**: já configurado antes ou use Docker Compose.  
 - **dbt**:
   ```bash
@@ -26,12 +27,12 @@
     outputs:
       dev:
         type: snowflake
-        account: [sua_conta_snowflake]  # ex: abc12345.us-east-1
-        user: [seu_usuario]
+        account: [sua_conta_snowflake]  # ex: ZBUHFWH-HY64747
+        user: AIRBYTE_DEV
         password: [sua_senha]
         role: AIRBYTE_DEV
         database: LAB_AIRBYTE
-        warehouse: LAB_WH
+        warehouse: LAB_WH_AIRBYTE
         schema: CORE
         threads: 4
         keepalives_idle: 240

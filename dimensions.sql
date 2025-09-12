@@ -1,4 +1,4 @@
-USE SCHEMA DWH;
+USE SCHEMA CORE;
 
 -- Dimensão de datas (YYYYMMDD como chave)
 CREATE OR REPLACE TABLE DIM_DATE (
