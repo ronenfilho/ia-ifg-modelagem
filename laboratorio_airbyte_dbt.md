@@ -78,7 +78,7 @@ SELECT
   val_potenciainstalada         AS pot_instalada_mw,
   val_dispoperacional           AS disp_operacional_mw,
   val_dispsincronizada          AS disp_sincronizada_mw
-FROM {{ source('staging','disponibilidade_usina_2025_08') }};
+FROM {{ source('staging','disponibilidade_usina_2025_08') }}
 ```
 
 **schema.yml**:
