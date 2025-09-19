@@ -21,4 +21,4 @@ CREATE DATABASE IF NOT EXISTS LAB_DWH;
 USE DATABASE LAB_DWH;
 
 CREATE SCHEMA IF NOT EXISTS STAGING;  -- dados de origem
-CREATE SCHEMA IF NOT EXISTS DWH;      -- modelo analítico (estrela)
+CREATE SCHEMA IF NOT EXISTS CORE;      -- modelo analítico (estrela)
