@@ -31,7 +31,7 @@
         user: AIRBYTE_DEV
         password: [sua_senha]
         role: AIRBYTE_DEV
-        database: LAB_AIRBYTE
+        database: LAB_PIPELINE
         warehouse: LAB_WH_AIRBYTE
         schema: CORE
         threads: 4
