@@ -1,0 +1,1 @@
+SELECT GET_DDL('VIEW', 'IE_DB.CORE.ORDERBYtable_name;');

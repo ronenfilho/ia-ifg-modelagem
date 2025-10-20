@@ -1,0 +1,1 @@
+SELECT GET_DDL('TABLE', 'IE_DB.STAGING.SELECTtable_name');

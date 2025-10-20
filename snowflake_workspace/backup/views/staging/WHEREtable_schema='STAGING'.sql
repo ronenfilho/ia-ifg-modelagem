@@ -1,0 +1,1 @@
+SELECT GET_DDL('VIEW', 'IE_DB.STAGING.WHEREtable_schema='STAGING'');
